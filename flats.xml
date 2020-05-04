@@ -171,4 +171,23 @@
             <numberOfFlatsOnFloor>12</numberOfFlatsOnFloor>
         </house>
     </flat>
+    <flat>
+        <id>60</id>
+        <name>sdf</name>
+        <coordinates>
+            <x>5.0</x>
+            <y>5.0</y>
+        </coordinates>
+        <creationDate>Mon May 04 23:11:58 YEKT 2020</creationDate>
+        <area>5.0</area>
+        <numberOfRooms>5</numberOfRooms>
+        <kitchenArea>15</kitchenArea>
+        <timeToMetroOnFoot>23.0</timeToMetroOnFoot>
+        <furnish>NONE</furnish>
+        <house>
+            <houseName>dom</houseName>
+            <year>12</year>
+            <numberOfFlatsOnFloor>5</numberOfFlatsOnFloor>
+        </house>
+    </flat>
 </flats>

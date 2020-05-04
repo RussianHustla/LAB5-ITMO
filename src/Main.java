@@ -22,7 +22,7 @@ import java.util.Stack;
 public class Main {
 
     public static void main(String[] args) {
-        ArrayList<Flat> flats = new ArrayList<>();
+        //ArrayList<Flat> flats = new ArrayList<>();
         CollectionManager collection = CollectionManager.getInstance();
 
         try {
@@ -47,7 +47,9 @@ public class Main {
                 e.printStackTrace();
             } catch (InvalidInputException e) {
                 System.err.println("Некорректный ввод команды");
-            }
+            } //catch (NumberFormatException e) {
+//                System.err.println("Введено некорректное число");
+//            }
         }
     }
 }

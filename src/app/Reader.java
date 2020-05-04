@@ -15,9 +15,12 @@ public class Reader {
 
 
     public static String request() throws IOException {
-        String answer = null;
+        String answer;
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         answer = reader.readLine();
+        if (answer.equals("")) {
+            return null;
+        }
         return answer.trim();
     }
 
@@ -34,7 +37,6 @@ public class Reader {
         }
         else if (answer == null){
             do {
-                //throw new InvalidInputException("Значение не может быть null");
                 System.err.println("Значение не может быть null");
                 answer = request(message);
             } while (answer == null);
@@ -43,14 +45,17 @@ public class Reader {
     }
 
     public static String request(String message, int min, int max) throws IOException {
-        String answer = null;
-        do {
-            try {
-                answer = request(message, false);
-            } catch (Exception e) {
-                System.err.println("Введите число");
+        String answer;
+        try {
+            answer = request(message, false);
+            if (!checkNumber(Double.parseDouble(answer), min, max)) {
+                System.err.println("Некорректные границы числа, повторите ввод");
+                return request(message, min, max);
             }
-        } while (!checkNumber(Double.parseDouble(answer), min, max));
+        } catch (NumberFormatException e) {
+            System.err.println("Некорректное число, повторите ввод");
+            return request(message, min, max);
+        }
         return answer;
     }
 
@@ -58,10 +63,10 @@ public class Reader {
         String name = request("Введите название квартиры: ", false);
         Coordinates coordinates = requestForCoordinates();
         Date creationDate = new Date();
-        Double area = Double.valueOf(request("Введите жилую площадь (целое число, большее 0): ", 0, -1));
-        Long numberOfRooms = Long.valueOf(request("Введите количество комнат (целое число, большее 0): ", 0, -1));
-        int kitchenArea = Integer.parseInt(request("Введите площадь кухни (целое число, большее 0): ", 0, -1));
-        Double timeToMetroOnFoot = Double.valueOf(request("Введите время до метро пешком (целое число, большее 0): ", 0, -1));
+        Double area = Double.valueOf(request("Введите жилую площадь (число, большее 0): ", 1, -1));
+        Long numberOfRooms = Long.valueOf(request("Введите количество комнат (целое число, большее 0): ", 1, -1));
+        int kitchenArea = Integer.parseInt(request("Введите площадь кухни (целое число, большее 0): ", 1, -1));
+        Double timeToMetroOnFoot = Double.valueOf(request("Введите время до метро пешком (число, большее 0): ", 1, -1));
         Furnish furnish = requestForFurnish();
         House house = requestForHouse();
         int id = generateId(1000);
@@ -70,21 +75,26 @@ public class Reader {
 
     public static Coordinates requestForCoordinates() throws IOException {
         System.out.println("Введите координаты квартиры: ");
-        double x = Double.parseDouble(request("Введите расположение квартиры по X (вещественное число): ", false));
-        double y = Double.parseDouble(request("Введите расположение квартиры по Y (вещественное число): ", false));
+        double x;
+        double y;
+        try {
+            x = Double.parseDouble(request("Введите расположение квартиры по X (число): ", false));
+            y = Double.parseDouble(request("Введите расположение квартиры по Y (число): ", false));
+        } catch (NumberFormatException e) {
+            System.err.println("Некорректные координаты, повторите ввод");
+            return requestForCoordinates();
+        }
         return new Coordinates(x, y);
     }
 
     public static Furnish requestForFurnish() throws IOException {
-        Furnish furnish = Furnish.NONE;
+        Furnish furnish;
         try {
             String answer = request("Введите состояние квартиры КАПСОМ (DESIGNER,NONE,FINE,BAD,LITTLE) : ", false);
-            /*answer = answer.toUpperCase();
-            System.out.println(answer);*/
-            furnish = Furnish.valueOf(answer);
+            furnish = Furnish.valueOf(answer.toUpperCase());
         } catch (IllegalArgumentException e) {
             System.err.println("Введите один из доступных вариантов");
-            requestForFurnish();
+            return requestForFurnish();
         }
         return furnish;
     }
@@ -92,8 +102,8 @@ public class Reader {
     public static House requestForHouse() throws IOException {
         System.out.println("Введите данные о доме: ");
         String name = request("Введите называние дома: ", false);
-        Integer year = Integer.valueOf(request("Введите возраст дома (целое число, большее 0): ", 0, -1));
-        long numberOfFlatsOnFloor = Long.parseLong(request("Введите количество квартир на этаже: ", 0, -1));
+        Integer year = Integer.valueOf(request("Введите возраст дома (целое число, большее 0): ", 1, -1));
+        long numberOfFlatsOnFloor = Long.parseLong(request("Введите количество квартир на этаже (целое число, большее 0): ", 1, -1));
         return new House(name, year, numberOfFlatsOnFloor);
     }
 
