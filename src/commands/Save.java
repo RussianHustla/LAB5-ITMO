@@ -3,7 +3,6 @@ package commands;
 import collection.CollectionManager;
 
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
 import java.io.IOException;
 
 public class Save extends Command {
@@ -16,7 +15,7 @@ public class Save extends Command {
 
     @Override
     public void execute(CollectionManager collection, String[] args) throws IOException, ParserConfigurationException {
-        if (CommandsManager.getInstance().confirmExecution("Исходный файл с коллекцией будет перезаписан. Продолжить? y/n")) {
+        if (CommandsManager.getInstance().confirmExecution("Файл с коллекцией будет перезаписан. Продолжить? y/n")) {
             String str = collection.toXml();
             collection.save(str.replaceFirst("UTF-16", "UTF-8"), path);
             System.out.println("Коллекция успешно сохранена в файл " + path);

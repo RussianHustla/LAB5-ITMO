@@ -167,7 +167,7 @@ public class CollectionManager {
 
     /**
      * Метод для получения информации о коллекции.
-     * @return Информация о коллекции.
+     * @return
      */
     public String info() {
         StringBuilder sb = new StringBuilder();
