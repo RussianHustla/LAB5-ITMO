@@ -1,19 +1,22 @@
 package app;
 
 import collection.*;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.Date;
 
-import static java.lang.Math.random;
-
+/**
+ * Класс, отвечающий за забор ввода от пользователя из консоли
+ */
 public class Reader {
 
 
-
+    /**
+     * Базовый метод для забора ввода от пользователя без вывода сообщения в консоль
+     * @return Ввод пользователя
+     * @throws IOException
+     */
     public static String request() throws IOException {
         String answer;
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -24,12 +27,25 @@ public class Reader {
         return answer.trim();
     }
 
+    /**
+     * Метод для забора данных от пользователя. Выводит приглашающее сообщение в консоль
+     * @param message Приглашающее сообщение
+     * @return Ввод пользователя
+     * @throws IOException
+     */
     public static String request(String message) throws IOException {
         System.out.println(message);
         String answer = request();
         return answer;
     }
 
+    /**
+     * Метод для забора данных от пользователя. Выводит приглашающее сообщение в консоль
+     * @param message Приглашающее сообщение
+     * @param nullable Может ли результат ввода быть равен null
+     * @return Ввод пользователя
+     * @throws IOException
+     */
     public static String request(String message, boolean nullable) throws IOException {
         String answer = request(message);
         if (nullable) {
@@ -44,6 +60,14 @@ public class Reader {
         return answer;
     }
 
+    /**
+     * Метод для забора числовых данных от пользователя. Выводит приглашающее сообщение в консоль
+     * @param message Приглашающее сообщение
+     * @param min Минимально допустимое значение
+     * @param max Максимально допустимое значение
+     * @return Ввод пользователя
+     * @throws IOException
+     */
     public static String request(String message, int min, int max) throws IOException {
         String answer;
         try {
@@ -59,6 +83,11 @@ public class Reader {
         return answer;
     }
 
+    /**
+     * Метод для запроса данных на ввод параметров квартиры
+     * @return Сформированный экземпляр класса Flat
+     * @throws IOException
+     */
     public static Flat requestForFlat() throws IOException {
         String name = request("Введите название квартиры: ", false);
         Coordinates coordinates = requestForCoordinates();
@@ -73,6 +102,11 @@ public class Reader {
         return new Flat(id, name, coordinates, creationDate, area, numberOfRooms, kitchenArea, timeToMetroOnFoot, furnish, house);
     }
 
+    /**
+     * Метод для запроса ввода координат
+     * @return Сформированный экземпляр класса Coordinates
+     * @throws IOException
+     */
     public static Coordinates requestForCoordinates() throws IOException {
         System.out.println("Введите координаты квартиры: ");
         double x;
@@ -87,6 +121,11 @@ public class Reader {
         return new Coordinates(x, y);
     }
 
+    /**
+     * Метод для запроса ввода состояния квартиры
+     * @return значение furnish
+     * @throws IOException
+     */
     public static Furnish requestForFurnish() throws IOException {
         Furnish furnish;
         try {
@@ -99,6 +138,11 @@ public class Reader {
         return furnish;
     }
 
+    /**
+     * Метод для запроса ввода дома
+     * @return Сформированный экземпляр класса House
+     * @throws IOException
+     */
     public static House requestForHouse() throws IOException {
         System.out.println("Введите данные о доме: ");
         String name = request("Введите называние дома: ", false);
@@ -107,10 +151,22 @@ public class Reader {
         return new House(name, year, numberOfFlatsOnFloor);
     }
 
+    /**
+     * Метод для проверки числа на вхождение в заданный диапазон
+     * @param s Число
+     * @param min Минимально допустимое значение
+     * @param max Максимально допустимое значение (-1, если не имеет значение)
+     * @return
+     */
     public static boolean checkNumber(double s, int min, int max) {
         return ((min < 0 || s >= min) && (max < 0 || s <= max));
     }
 
+    /**
+     * Метод для генерации id для новой квартиры
+     * @param max Максимальное значение id
+     * @return
+     */
     public static int generateId(int max) {
         final int min = 1;
         int generatedId;

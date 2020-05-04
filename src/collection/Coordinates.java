@@ -1,5 +1,8 @@
 package collection;
 
+/**
+ * Класс координат.
+ */
 public class Coordinates {
     private double x;
     private double y;

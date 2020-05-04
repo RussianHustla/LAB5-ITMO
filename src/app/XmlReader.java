@@ -15,16 +15,26 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+/**
+ * Класс, отвечающий за считывание коллекции из файла в формате xml
+ */
 public class XmlReader {
 
-    public static void read() throws IOException, ParserConfigurationException, SAXException {
+    /**
+     * Метод для считывания коллекции из файла xml
+     * @param path Путь к файлу
+     * @throws IOException
+     * @throws ParserConfigurationException
+     * @throws SAXException
+     */
+    public static void read(String path) throws IOException, ParserConfigurationException, SAXException {
 
         SAXParserFactory spf = SAXParserFactory.newInstance();
         SAXParser saxParser = spf.newSAXParser();
         XMLReader xmlReader = saxParser.getXMLReader();
         XMLHandler handler = new XMLHandler();
         xmlReader.setContentHandler(handler);
-        xmlReader.parse("flats.xml");
+        xmlReader.parse(path);
     }
 
     private static class XMLHandler extends DefaultHandler {
@@ -64,10 +74,6 @@ public class XmlReader {
                 case "house": {
                     currentFlatHouse = new House();
                 } break;
-
-                default: {
-                    //nothing;
-                }
             }
         }
 
@@ -87,10 +93,6 @@ public class XmlReader {
                     currentFlatHouse = null;
                     currentFlatCoords = null;
                 } break;
-
-                default: {
-                    //nothing
-                }
             }
             currentElement = null;
         }
@@ -123,7 +125,6 @@ public class XmlReader {
                     try {
                         Date date = dateFormat.parse(text);
                         currentFlat.setCreationDate(date);
-                        System.out.println(text);
                     } catch (ParseException e) {
                         System.err.println("Встречен неправильный формат даты при загрузки коллекции" + text);
                         e.printStackTrace();
@@ -132,79 +133,63 @@ public class XmlReader {
 
                 case "x": {
                     currentFlatCoords.setX(Double.parseDouble(text));
-                    System.out.println(text);
 
                 } break;
 
                 case "y": {
                     currentFlatCoords.setY(Double.parseDouble(text));
                     currentFlat.setCoordinates(currentFlatCoords);
-                    System.out.println(text);
 
                 } break;
 
                 case "area": {
                     currentFlat.setArea(Double.valueOf(text));
-                    System.out.println(text);
-
                 } break;
 
                 case "numberOfRooms": {
                     currentFlat.setNumberOfRooms(Long.valueOf(text));
-                    System.out.println(text);
 
                 } break;
 
                 case "kitchenArea": {
                     try {
                         currentFlat.setKitchenArea(Integer.parseInt(text));
-                        System.out.println(text);
 
                     } catch (NumberFormatException e) {
-                        System.err.println("kitchen ERR");
+                        e.printStackTrace();
                     }
 
                 } break;
 
                 case "timeToMetroOnFoot": {
                     currentFlat.setTimeToMetroOnFoot(Double.valueOf(text));
-                    System.out.println(text);
 
                 } break;
 
                 case "furnish": {
                     currentFlat.setFurnish(Furnish.valueOf(text));
-                    System.out.println(text);
 
                 } break;
 
                 case "houseName": {
                     currentFlatHouse.setName(text);
-                    System.out.println(text);
 
                 } break;
 
                 case "year": {
                     try {
                         currentFlatHouse.setYear(Integer.valueOf(text));
-                        System.out.println(text);
 
                     } catch (NumberFormatException e) {
-                        System.err.println("year ERR");
+                        e.printStackTrace();
                     }
 
                 } break;
 
                 case "numberOfFlatsOnFloor": {
                     currentFlatHouse.setNumberOfFlatsOnFloor(Long.parseLong(text));
-                    System.out.println(text);
-
                     currentFlat.setHouse(currentFlatHouse);
                 } break;
-
-                default: {
-                    //nothing
-                }
             }
         }
     }

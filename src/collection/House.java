@@ -1,5 +1,8 @@
 package collection;
 
+/**
+ * Класс дома.
+ */
 public class House implements Comparable<House>{
     private String name; //Поле не может быть null
     private Integer year; //Поле не может быть null, Значение поля должно быть больше 0
@@ -48,6 +51,11 @@ public class House implements Comparable<House>{
         this.numberOfFlatsOnFloor = numberOfFlatsOnFloor;
     }
 
+    /**
+     * Сравнение выполняется по возрасту дома.
+     * @param o
+     * @return
+     */
     @Override
     public int compareTo(House o) {
         return this.year - o.year;

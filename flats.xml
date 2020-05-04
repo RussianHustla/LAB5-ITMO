@@ -190,4 +190,23 @@
             <numberOfFlatsOnFloor>5</numberOfFlatsOnFloor>
         </house>
     </flat>
+    <flat>
+        <id>312</id>
+        <name>new one</name>
+        <coordinates>
+            <x>54.0</x>
+            <y>2.0</y>
+        </coordinates>
+        <creationDate>Mon May 04 23:51:59 YEKT 2020</creationDate>
+        <area>99.0</area>
+        <numberOfRooms>5</numberOfRooms>
+        <kitchenArea>12</kitchenArea>
+        <timeToMetroOnFoot>45.0</timeToMetroOnFoot>
+        <furnish>LITTLE</furnish>
+        <house>
+            <houseName>test</houseName>
+            <year>12</year>
+            <numberOfFlatsOnFloor>4</numberOfFlatsOnFloor>
+        </house>
+    </flat>
 </flats>

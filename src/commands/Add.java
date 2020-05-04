@@ -3,7 +3,6 @@ package commands;
 import app.Reader;
 import collection.Flat;
 import collection.CollectionManager;
-
 import java.io.IOException;
 
 public class Add extends Command {
@@ -17,6 +16,8 @@ public class Add extends Command {
     public void execute(CollectionManager collection, String[] args) throws IOException {
         Flat flat = Reader.requestForFlat();
         collection.add(flat);
+        System.out.println(collection.getLast());
+        System.out.println("Новый элемент добавлен в коллекцию");
     }
 
     @Override

@@ -1,9 +1,11 @@
 package collection;
 
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
+/**
+ * Класс квартир.
+ */
 public class Flat implements Comparable<Flat>{
     private int id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
@@ -178,6 +180,11 @@ public class Flat implements Comparable<Flat>{
         this.house = house;
     }
 
+    /**
+     * Сравнение квартир выполняется по времени до метро пешком.
+     * @param o
+     * @return
+     */
     @Override
     public int compareTo(Flat o) {
         if ((this.timeToMetroOnFoot - o.timeToMetroOnFoot) > 0) return 1;

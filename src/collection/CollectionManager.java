@@ -20,6 +20,9 @@ import java.util.List;
 
 import static java.lang.String.valueOf;
 
+/**
+ * Класс "Receiver", отвечающий за хранение коллекции и управление
+ */
 public class CollectionManager {
     //Receiver
 
@@ -40,25 +43,48 @@ public class CollectionManager {
         return instance;
     }
 
+    /**
+     * Метод для добавление нового элемента в коллекцию
+     * @param flat
+     */
     public void add(Flat flat) {
         flats.add(flat);
-        System.out.println(flats.get(flats.size() - 1));
     }
 
-    public Flat get_first() { return flats.get(flats.size() - 1); }
+    /**
+     * Метод для получение последнего элемента коллекции.
+     * @return Последний элемент коллекции
+     */
+    public Flat getLast() { return flats.get(flats.size() - 1); }
 
+    /**
+     * Метод для очистки коллекции
+     */
     public void clear() {
         flats.clear();
     }
 
+    /**
+     * Метод для получения размера коллекции.
+     * @return Размер коллекции
+     */
     public int size() {
         return flats.size();
     }
 
+    /**
+     * Метод для получения коллекции.
+     * @return коллекция flats
+     */
     public List<Flat> toList() {
         return flats;
     }
 
+    /**
+     * Метод для получения квартиры по ее id.
+     * @param id
+     * @return Квартира
+     */
     public Flat getFlatById(int id) {
         for (Flat flat : flats) {
             if (flat.getId() == id) {
@@ -68,10 +94,20 @@ public class CollectionManager {
         return null;
     }
 
+    /**
+     * Метод для удаления квартиры по ее id.
+     * @param id
+     * @return true - если элемент коллекции успешно удален, false - если такого элемента не существует.
+     */
     public boolean removeById(int id) {
         return flats.remove(getFlatById(id));
     }
 
+    /**
+     * Метод для проверки занятости id.
+     * @param id
+     * @return true - если id свободен, false - если id занят.
+     */
     public boolean isIdFree(int id) {
         for (Flat flat : flats) {
             if (flat.getId() == id) {
@@ -81,16 +117,30 @@ public class CollectionManager {
         return true;
     }
 
+    /**
+     * Метод для удаления квартиры по индексу элемента.
+     * @param index
+     */
     public void removeByIndex(int index) {
         flats.remove(index);
     }
 
+    /**
+     * Метод для сохранения в файл.
+     * @param str Данные для сохранения.
+     * @param path Путь к файлу для сохранения.
+     * @throws IOException
+     */
     public void save(String str, String path) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(path));
         writer.write(str);
         writer.close();
     }
 
+    /**
+     * Метод для получения минимального элента коллекции (Сортировка выполняется по времни до метро пешком).
+     * @return Минимальный элемент коллекции.
+     */
     public Flat getMinimal() {
         if (flats.size() > 0) {
             Collections.sort(flats);
@@ -99,19 +149,26 @@ public class CollectionManager {
         return null;
     }
 
-//    public int countGreaterThanHouse(House house) {
-//        //return st.toList().stream().filter(x -> x.getHouse().compareTo(house) < 0).count();
-//
-//    }
-
+    /**
+     * Метод для получения времени инициализации коллекции.
+     * @return Время инициализации.
+     */
     public Date getInitializationTime() {
         return creationDate;
     }
 
+    /**
+     * Метод для получения типа коллекции.
+     * @return Тип коллекции.
+     */
     public Class<?> getCollectionClass() {
         return flats.getClass();
     }
 
+    /**
+     * Метод для получения информации о коллекции.
+     * @return Информация о коллекции.
+     */
     public String info() {
         StringBuilder sb = new StringBuilder();
         sb.append("Время инициализации коллекции: ").append(getInitializationTime().toString()).append('\n');
@@ -127,6 +184,11 @@ public class CollectionManager {
                 '}';
     }
 
+    /**
+     * Метод для преобразования коллекции в формат xml.
+     * @return Данные в формате xml в строковом представлении.
+     * @throws ParserConfigurationException
+     */
     public String toXml() throws ParserConfigurationException {
         String str = " ";
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
