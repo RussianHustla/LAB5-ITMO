@@ -41,6 +41,7 @@ public class CommandsManager {
         addCommand(new Filter_by_furnish());
         addCommand(new Count_greater_than_house());
         addCommand(new Add_if_min());
+        addCommand(new Execute_script());
 
     }
 

@@ -17,7 +17,7 @@ public class Exit extends Command {
 
     @Override
     public void execute(CollectionManager collection, String[] args) throws IOException {
-        if (CommandsManager.getInstance().confirmExecution("Вы действительно хотите завершить программу без сохранения? y/n")) {
+        if (CommandsManager.getInstance().confirmExecution("Вы действительно хотите завершить программу? Все несохраненные данные будут утеряны y/n")) {
             System.exit(0);
         }
     }

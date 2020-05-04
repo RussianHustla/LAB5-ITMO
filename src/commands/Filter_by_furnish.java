@@ -23,7 +23,7 @@ public class Filter_by_furnish extends Command {
         }
         Furnish referenceFurnish;
         try {
-            referenceFurnish = Furnish.valueOf(args[0]);
+            referenceFurnish = Furnish.valueOf(args[0].toUpperCase());
         } catch ( NumberFormatException e ) {
             throw new InvalidInputException("У вызываемой команды некорректный аргумент (требуется число)");
         } catch (IllegalArgumentException e) {

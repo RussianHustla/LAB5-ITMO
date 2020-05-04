@@ -152,4 +152,23 @@
             <numberOfFlatsOnFloor>54</numberOfFlatsOnFloor>
         </house>
     </flat>
+    <flat>
+        <id>341</id>
+        <name>Из скрипта</name>
+        <coordinates>
+            <x>75.0</x>
+            <y>65.0</y>
+        </coordinates>
+        <creationDate>Mon May 04 20:15:37 YEKT 2020</creationDate>
+        <area>85.0</area>
+        <numberOfRooms>5</numberOfRooms>
+        <kitchenArea>14</kitchenArea>
+        <timeToMetroOnFoot>25.0</timeToMetroOnFoot>
+        <furnish>DESIGNER</furnish>
+        <house>
+            <houseName>Дом из скрипта</houseName>
+            <year>5</year>
+            <numberOfFlatsOnFloor>12</numberOfFlatsOnFloor>
+        </house>
+    </flat>
 </flats>
