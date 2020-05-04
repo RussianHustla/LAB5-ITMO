@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Класс "Invoker" хранящий в себе команды.
+ */
 public class CommandsManager {
     //Invoker
 
@@ -49,6 +52,12 @@ public class CommandsManager {
         commands.put(command.getCommand(), command);
     }
 
+    /**
+     * Метод для парсинга команды из строки.
+     * @param s
+     * @return Команда
+     * @throws NoSuchCommandException
+     */
     public Command getCommand(String s) throws NoSuchCommandException {
         if (!commands.containsKey(s)) {
             throw new NoSuchCommandException();
@@ -56,10 +65,19 @@ public class CommandsManager {
         return commands.getOrDefault(s, null);
     }
 
+    /**
+     * Метод для получения коллекции всех команд.
+     * @return Коллекция комманд.
+     */
     public List<Command> getAllCommands() {
         return commands.keySet().stream().map(x -> (commands.get(x))).collect(Collectors.toList());
     }
 
+    /**
+     * Метод для получения истории последних выполненных команд.
+     * @param count Колличество запрашиваемых команд из истории.
+     * @return Коллекция последних выполненных команд.
+     */
     public List<Command> getHistory(int count) {
         ArrayList<Command> requestedHistory = new ArrayList<>();
         if (count > history.size()) count = history.size();
@@ -69,6 +87,15 @@ public class CommandsManager {
         return requestedHistory;
     }
 
+    /**
+     * Метод для выполнения команды. Разделяет полученную строку на команду и аргумент,
+     * добавляет выполненную команду в историю.
+     * @param collection
+     * @param s
+     * @throws IOException
+     * @throws ParserConfigurationException
+     * @throws TransformerException
+     */
     public void executeCommand(CollectionManager collection, String s) throws IOException, ParserConfigurationException, TransformerException {
         String[] parsedCommand = parseCommand(s);
         Command command = getCommand(parsedCommand[0]);
@@ -77,6 +104,12 @@ public class CommandsManager {
         command.execute(collection, args);
     }
 
+    /**
+     * Метод для запроса подтверждения выполнения команды от пользователя.
+     * @param question Сообщение для пользователя.
+     * @return true - подтверждение, false - отмена.
+     * @throws IOException
+     */
     public boolean confirmExecution(String question) throws IOException {
         String answer = Reader.request(question, false).toLowerCase();
         if (answer.equals("y") || answer.equals("д") || answer.equals("+") || answer.equals("yes") || answer.equals("да")) {
@@ -84,6 +117,11 @@ public class CommandsManager {
         } else return false;
     }
 
+    /**
+     * Метод для разделения строки на лексемы по пробелу.
+     * @param line
+     * @return Массив лексем.
+     */
     public String[] parseCommand(String line) {
         return line.split(" ");
     }

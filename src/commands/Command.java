@@ -6,6 +6,9 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import java.io.IOException;
 
+/**
+ * Абстрактный класс-предок всех команд.
+ */
 public abstract class Command {
     protected String command;
     protected String description;
