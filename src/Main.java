@@ -37,6 +37,8 @@ public class Main {
             } catch (IOException e) {
                 System.err.println("Ошибка ввода/вывода");
                 e.printStackTrace();
+            } catch (NullPointerException e) {
+                System.err.println("Пустая строка");
             }
         } else {
             System.err.println("Файл для инициализации коллекции не введён. Имя файла следует ввести в аргументах запуска программы.");
@@ -50,21 +52,23 @@ public class Main {
                 System.err.println("Ошибка ввода/вывода");
                 e.printStackTrace();
             }
-            try {
-                CommandsManager.getInstance().executeCommand(collection, answer);
-            } catch (NoSuchCommandException e) {
-                System.err.println("Неизвестная команда, используйте команду help, чтобы посмотреть список всех доступных команд.");
-            } catch (ParserConfigurationException | TransformerException e ) {
-                System.err.println("Проблемы с парсером");
-                e.printStackTrace();
-            } catch (InvalidInputException e) {
-                System.err.println("Некорректный ввод команды");
-            } catch (IOException e) {
-                System.err.println("Ошибка ввода/вывода");
-                e.printStackTrace();
-            } catch (Exception e) {
-                System.err.println("Неизвестная ошибка");
-                e.printStackTrace();
+            if (answer != null) {
+                try {
+                    CommandsManager.getInstance().executeCommand(collection, answer);
+                } catch (NoSuchCommandException e) {
+                    System.err.println("Неизвестная команда, используйте команду help, чтобы посмотреть список всех доступных команд.");
+                } catch (ParserConfigurationException | TransformerException e ) {
+                    System.err.println("Проблемы с парсером");
+                    e.printStackTrace();
+                } catch (InvalidInputException e) {
+                    System.err.println("Некорректный ввод команды");
+                } catch (IOException e) {
+                    System.err.println("Ошибка ввода/вывода");
+                    e.printStackTrace();
+                } catch (Exception e) {
+                    System.err.println("Неизвестная ошибка");
+                    e.printStackTrace();
+                }
             }
         }
     }
