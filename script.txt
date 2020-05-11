@@ -3,4 +3,4 @@ help
 history
 filter_by_furnish none
 info
-save
+execute_script script.txt

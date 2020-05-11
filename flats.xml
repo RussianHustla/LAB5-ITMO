@@ -1,25 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <flats>
     <flat>
-        <id>2</id>
-        <name>моя квартира</name>
-        <coordinates>
-            <x>555.0</x>
-            <y>30.0</y>
-        </coordinates>
-        <creationDate>Thu Apr 30 03:53:22 YEKT 2020</creationDate>
-        <area>97.0</area>
-        <numberOfRooms>3</numberOfRooms>
-        <kitchenArea>30</kitchenArea>
-        <timeToMetroOnFoot>3.0</timeToMetroOnFoot>
-        <furnish>FINE</furnish>
-        <house>
-            <houseName>мой дом</houseName>
-            <year>10</year>
-            <numberOfFlatsOnFloor>8</numberOfFlatsOnFloor>
-        </house>
-    </flat>
-    <flat>
         <id>1</id>
         <name>треп хата</name>
         <coordinates>

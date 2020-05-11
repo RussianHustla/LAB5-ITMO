@@ -29,6 +29,7 @@ public class CollectionManager {
     ArrayList<Flat> flats = new ArrayList<>();
 
     private Date creationDate;
+    private boolean hasUnsavedChanges = false;
 
     public CollectionManager() {
         creationDate = new Date();
@@ -155,6 +156,34 @@ public class CollectionManager {
      */
     public Date getInitializationTime() {
         return creationDate;
+    }
+
+    /**
+     * Метод для проверки наличия несохраненных изменений в коллекции.
+     * @return true - есть несохранненые изменения, false - нет несохраненных изменений.
+     */
+    public boolean isHasUnsavedChanges() {
+        return hasUnsavedChanges;
+    }
+
+    /**
+     * Метод для установки флага наличия несохраненных изменений.
+     * @param hasUnsavedChanges true - есть несохранненые изменения, false - нет несохраненных изменений.
+     */
+    public void setHasUnsavedChanges(boolean hasUnsavedChanges) {
+        this.hasUnsavedChanges = hasUnsavedChanges;
+    }
+
+    /**
+     * Метод для выполнения цепочки действий при появлении нового изменнения в коллекции.
+     * Устанавливает флаг наличия несохраненных изменений, сохраняет коллекцию во временный файл.
+     * @throws ParserConfigurationException
+     * @throws IOException
+     */
+    public void HasUnsavedChanges() throws ParserConfigurationException, IOException {
+        setHasUnsavedChanges(true);
+        String temp = toXml();
+        save(temp.replaceFirst("UTF-16", "UTF-8"),"temp.xml");
     }
 
     /**

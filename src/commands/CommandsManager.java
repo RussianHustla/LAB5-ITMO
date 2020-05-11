@@ -119,10 +119,11 @@ public class CommandsManager {
 
     /**
      * Метод для разделения строки на лексемы по пробелу.
-     * @param line
+     * @param line строка для разделения.
      * @return Массив лексем.
      */
     public String[] parseCommand(String line) {
         return line.split(" ");
     }
+
 }

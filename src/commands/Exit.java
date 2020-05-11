@@ -2,6 +2,7 @@ package commands;
 
 import collection.CollectionManager;
 
+import java.io.File;
 import java.io.IOException;
 
 public class Exit extends Command {
@@ -17,8 +18,21 @@ public class Exit extends Command {
 
     @Override
     public void execute(CollectionManager collection, String[] args) throws IOException {
-        if (CommandsManager.getInstance().confirmExecution("Вы действительно хотите завершить программу? Все несохраненные данные будут утеряны y/n")) {
-            System.exit(0);
+        if (collection.isHasUnsavedChanges()) {
+            if (CommandsManager.getInstance().confirmExecution("Имеются несохраненные изменения, Вы действительно хотите завершить программу?" + '\n' + "Все несохраненные данные будут утеряны. y/n")) {
+                collection.setHasUnsavedChanges(false);
+                File temp = new File("temp.xml");
+                temp.delete();
+                System.exit(0);
+            }
+        } else {
+            if (CommandsManager.getInstance().confirmExecution("Вы действительно хотите завершить программу? y/n")) {
+                File temp = new File("temp.xml");
+                temp.delete();
+                System.exit(0);
+            }
+
         }
+
     }
 }

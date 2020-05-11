@@ -7,7 +7,6 @@ import collection.Flat;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import java.io.IOException;
-import java.util.Collections;
 
 public class Add_if_min extends Command {
 
@@ -21,6 +20,7 @@ public class Add_if_min extends Command {
         Flat flat = Reader.requestForFlat();
         if (collection.getMinimal().compareTo(flat) > 0) {
             collection.add(flat);
+            collection.HasUnsavedChanges();
         }
     }
 }

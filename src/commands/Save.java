@@ -3,6 +3,7 @@ package commands;
 import collection.CollectionManager;
 
 import javax.xml.parsers.ParserConfigurationException;
+import java.io.File;
 import java.io.IOException;
 
 public class Save extends Command {
@@ -19,6 +20,9 @@ public class Save extends Command {
             String str = collection.toXml();
             collection.save(str.replaceFirst("UTF-16", "UTF-8"), path);
             System.out.println("Коллекция успешно сохранена в файл " + path);
+            collection.setHasUnsavedChanges(false);
+            File temp = new File("temp.xml");
+            temp.delete();
         }
     }
 }

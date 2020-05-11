@@ -3,6 +3,7 @@ package commands;
 import app.InvalidInputException;
 import collection.CollectionManager;
 
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 
 public class Remove_by_id extends Command{
@@ -13,7 +14,7 @@ public class Remove_by_id extends Command{
     }
 
     @Override
-    public void execute(CollectionManager collection, String[] args) throws IOException {
+    public void execute(CollectionManager collection, String[] args) throws IOException, ParserConfigurationException {
         if (args.length < 1) {
             throw new InvalidInputException("У вызываемой команды отсутствует аргумент");
         }
@@ -26,8 +27,9 @@ public class Remove_by_id extends Command{
         if (CommandsManager.getInstance().confirmExecution("Вы действительно хотите удалить элемент из коллекции? y/n")) {
             if(collection.removeById(id)) {
                 System.out.println("Элемент с id = " + id + " успешно удален из коллекции");
+                collection.HasUnsavedChanges();
             } else {
-                System.err.println("Элемент с id = " + " отсутствует в коллекции");
+                System.err.println("Элемент с id = " + id + " отсутствует в коллекции");
             }
         }
 

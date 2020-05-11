@@ -11,8 +11,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashSet;
 
 public class Execute_script extends Command{
+    private HashSet<Path> scriptsHistory = new HashSet<>();
 
     public Execute_script() {
         command = "execute_script";
@@ -32,7 +34,17 @@ public class Execute_script extends Command{
             String line = reader.readLine();
             while (line != null) {
                 System.out.println("Считана строка " + line);
-                CommandsManager.getInstance().executeCommand(collection, line);
+                String[] listScriptPath = line.split(" ");
+                if (listScriptPath[0].equals("execute_script")) {
+                    if (!scriptsHistory.contains(pathToScript)) {
+                        scriptsHistory.add(pathToScript);
+                        CommandsManager.getInstance().executeCommand(collection, line);
+                    } else {
+                        System.err.println("Обнаружена попытка вызова скрипта, который уже был вызван ранее.");
+                    }
+                } else {
+                    CommandsManager.getInstance().executeCommand(collection, line);
+                }
                 line = reader.readLine();
             }
         } catch (FileNotFoundException e) {
@@ -41,6 +53,7 @@ public class Execute_script extends Command{
             System.err.println("Ошибка во время выполнения скрипта.");
             throw e;
         }
-        System.out.println("Считывание скрипта из файла завершено");
+        scriptsHistory.removeAll(scriptsHistory);
+        System.out.println("Считывание скрипта из файла " + pathToScript + " завершено");
     }
 }

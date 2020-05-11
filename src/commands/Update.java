@@ -6,7 +6,6 @@ import collection.CollectionManager;
 import collection.Flat;
 
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
 import java.io.IOException;
 
 public class Update extends Command {
@@ -17,7 +16,7 @@ public class Update extends Command {
     }
 
     @Override
-    public void execute(CollectionManager collection, String[] args) throws IOException, ParserConfigurationException, TransformerException {
+    public void execute(CollectionManager collection, String[] args) throws IOException, ParserConfigurationException {
         if (args.length < 1) {
             throw new InvalidInputException("У вызываемой команды отсутствует аргумент");
         }
@@ -35,6 +34,7 @@ public class Update extends Command {
             collection.removeById(id);
             collection.add(flat);
             System.out.println("Элемент с id = " + id + " обновлен");
+            collection.HasUnsavedChanges();
         }
     }
 }
